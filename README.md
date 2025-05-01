@@ -4,6 +4,7 @@ Le Inventory Management System est une application web conçue pour simplifier e
 L’application est construite en utilisant Flask (Python) pour la logique serveur, MongoDB pour la gestion des données NoSQL, et Bootstrap pour une interface utilisateur réactive et conviviale.
 
 Fonctionnalités principales :
+
   Gestion des produits : Ajout, modification, suppression et consultation des produits.
   Recherche intelligente : Recherche dynamique par nom de produit.
   Suivi des transactions : Historique détaillé des ventes et mouvements de stock.
@@ -11,6 +12,7 @@ Fonctionnalités principales :
   Authentification sécurisée : Accès restreint via un système de login administrateur.
 
 Technologies utilisées :
+
   Frontend : HTML5, CSS3, Bootstrap
   Backend : Flask (Python), FPDF
   Base de données : MongoDB (collections : produits, transactions, administrateurs)
