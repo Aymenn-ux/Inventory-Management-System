@@ -1,27 +1,31 @@
-Inventory Management System:
+The Inventory Management System is an intuitive web-based platform created to streamline inventory tracking and management for businesses. It enables administrators to efficiently manage product data, monitor stock movements, and produce detailed reports. The application is developed using Flask (Python) on the backend, utilizes MongoDB for data storage, and employs Bootstrap for a responsive and user-friendly interface.
 
-Le Inventory Management System est une application web conçue pour simplifier et automatiser la gestion des stocks au sein des entreprises. Développée dans le cadre du module "Bases de Données SQL et NoSQL" du cycle d'ingénierie en IA (1ère année, semestre 4), cette solution permet aux utilisateurs autorisés de gérer efficacement les produits, suivre les transactions, et générer des rapports détaillés.
-L’application est construite en utilisant Flask (Python) pour la logique serveur, MongoDB pour la gestion des données NoSQL, et Bootstrap pour une interface utilisateur réactive et conviviale.
+Key Features
+1. Product Management
+• Add Product: Allows entry of new products with information such as name, stock quantity, unit price, and category.
+• Edit Product: Enables modification of existing product details.
+• Delete Product: Permits removal of products from the inventory system.
+• View Products: Displays a searchable and sortable list of all items in stock.
 
+2. Search Tool
+• Search for products by name with instant results, enhancing navigation and usability.
 
-Fonctionnalités principales :
+3. Transaction Log
+• Track inventory operations with a complete list of transactions, including data like product ID, quantity, price, and date/time.
 
-  Gestion des produits : Ajout, modification, suppression et consultation des produits.
-  
-  Recherche intelligente : Recherche dynamique par nom de produit.
-  
-  Suivi des transactions : Historique détaillé des ventes et mouvements de stock.
-  
-  Rapports PDF : Génération de rapports produits au format PDF.
-  
-  Authentification sécurisée : Accès restreint via un système de login administrateur.
+4. Report Generation
+• Generate up-to-date product inventory reports in PDF format, containing all relevant stock details.
 
+5. Secure Admin Access
+• Login system in place to ensure that only authorized users can access and manage the system.
 
-Technologies utilisées :
+Technologies Used
+Frontend
+• HTML5 – Structures the pages of the application.
+• CSS3 – Provides design and styling with custom rules and Bootstrap framework.
+• Bootstrap – Delivers responsive layouts and reusable components.
 
-  Frontend : HTML5, CSS3, Bootstrap
-
-  Backend : Flask (Python), FPDF
-  
-  Base de données : MongoDB (collections : produits, transactions, administrateurs)
-
+Backend
+• Flask (Python) – Manages server logic, routing, and application flow.
+• MongoDB – Stores product, admin, and transaction information in a NoSQL format.
+• FPDF – Handles PDF document creation for reporting.
