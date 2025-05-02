@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Inventory Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .dashboard-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+        }
+        .dashboard-container h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .btn-dashboard {
+            background: linear-gradient(135deg, #007bff, #00bfff);
+            color: #fff;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        .btn-dashboard:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3);
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 1rem;
+            z-index: 1000;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .navbar-toggler {
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+        .navbar-toggler:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        .dropdown-menu {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 0.5rem;
+        }
+        .dropdown-item {
+            color: #fff;
+        }
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .search-form {
+            padding: 0.5rem;
+        }
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            border-radius: 10px;
+            padding: 0.5rem;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .search-button {
+            background: linear-gradient(135deg, #007bff, #00bfff);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            width: 100%;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background: linear-gradient(135deg, #0056b3, #0088cc);
+        }
+
+        /* Media Query for Full Screen Mode */
+        @media (min-width: 992px) {
+            .search-input {
+                width: 300px; /* Larger width for full screen */
+                padding: 0.75rem; /* Larger padding for full screen */
+            }
+            .search-button {
+                padding: 0.75rem 1.5rem; /* Larger padding for full screen */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.5rem;
+            }
+            .dashboard-container {
+                padding: 1.5rem;
+            }
+            .dashboard-container h1 {
+                font-size: 1.5rem;
+            }
+            .btn-dashboard {
+                font-size: 1rem;
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i> <!-- Hamburger Icon -->
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Menu
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                        <!-- Logout Option -->
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h1>Dashboard</h1>
+        <div class="d-grid gap-3">
+            <a href="/add_product" class="btn btn-dashboard">Add Product</a>
+            <a href="/view_products" class="btn btn-dashboard">View Products</a>
+            <a href="/view_orders" class="btn btn-dashboard">View Orders</a>
+            <a href="/add_order" class="btn btn-dashboard">Add Order</a>
+            <a href="/view_clients" class="btn btn-dashboard">View Clients</a>
+            <a href="/add_client" class="btn btn-dashboard">Add Client</a>
+            <a href="/product_report" class="btn btn-dashboard">Product Report</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+   <!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+<!-- Flash message removal script -->
+<script>
+    // Function to remove flash messages after 3 seconds
+    function removeFlashMessages() {
+        const flashMessages = document.querySelectorAll('.alert');
+        flashMessages.forEach(message => {
+            setTimeout(() => {
+                message.remove();
+            }, 3000); // 3000 milliseconds = 3 seconds
+        });
+    }
+
+    // Call the function when the page loads
+    window.onload = removeFlashMessages;
+</script>
+<!-- Footer Section -->
+<footer style="position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; padding: 10px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+    <p style="margin: 0; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
+        BY 
+        <a href="https://www.linkedin.com/in/achraf-gebli-4aa7b5274/" target="_blank" style="color: #00bfff; text-decoration: none;">Achraf GEBLI</a> 
+        and 
+        <a href="https://www.linkedin.com/in/aymen-jabbar-b4a150340/" target="_blank" style="color: #00bfff; text-decoration: none;">Aymen JABBAR</a>
+    </p>
+</footer>
+</body>
+</html>

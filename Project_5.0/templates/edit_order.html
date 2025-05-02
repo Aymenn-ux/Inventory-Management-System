@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Order - Inventory Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .edit-order-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .edit-order-container h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            border-radius: 10px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .btn-update-order {
+            background: linear-gradient(135deg, #007bff, #00bfff);
+            color: #fff;
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-update-order:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 10px;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-order-container">
+        <h1>Edit Order</h1>
+        <form action="{{ url_for('edit_order', order_id=order._id) }}" method="POST">
+            <!-- Supplier Name -->
+            <div class="mb-3">
+                <label for="supplier_name" class="form-label">Supplier Name</label>
+                <input type="text" class="form-control" id="supplier_name" name="supplier_name" value="{{ order.supplier_name }}" required>
+            </div>
+
+            <!-- Product ID Dropdown -->
+            <div class="mb-3">
+                <label for="product_id" class="form-label">Product ID</label>
+                <select class="form-control" id="product_id" name="product_id" required>
+                    {% for product in products %}
+                        <option value="{{ product._id }}" {% if product._id == order.product_id %}selected{% endif %}>
+                            {{ product.name }} ({{ product._id }})
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Quantity -->
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" value="{{ order.quantity }}" required>
+            </div>
+
+            <!-- Order Date -->
+            <div class="mb-3">
+                <label for="order_date" class="form-label">Order Date</label>
+                <input type="date" class="form-control" id="order_date" name="order_date" value="{{ order.order_date.strftime('%Y-%m-%d') }}" required>
+            </div>
+
+            <!-- Status Dropdown -->
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-control" id="status" name="status" required>
+                    <option value="Pending" {% if order.status == 'Pending' %}selected{% endif %}>Pending</option>
+                    <option value="Delivered" {% if order.status == 'Delivered' %}selected{% endif %}>Delivered</option>
+                </select>
+            </div>
+
+            <!-- Update Button -->
+            <button type="submit" class="btn btn-update-order">Update Order</button>
+        </form>
+
+        <!-- Back to Dashboard Button -->
+        <a href="/index" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    </div>
+</body>
+</html>
